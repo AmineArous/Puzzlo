@@ -1,0 +1,32 @@
+/* 
+  Localizable.strings
+  BlocksGame
+
+  Created by Amine Arous on 01/04/2023.
+  
+*/
+
+"menu.button.play" = "Oyna";
+"menu.button.ranking" = "Sıralama";
+"menu.button.moreGames" = "Daha Fazla Oyun";
+"menu.button.removeAds" = "Reklamları Kaldır";
+
+"game.toast.howToPlay" = "Oynamak için sütuna dokunun!";
+
+"game.GameOver.title" = "Oyun Bitti";
+"game.GameOver.score" = "Skor";
+"game.GameOver.button.menu" = "Menü";
+
+"kRestore" = "Geri Yükle";
+"kTermsOfUse" = "Kullanım Şartları";
+
+"kRemoveAdsTitle" = "Reklamları Kaldır";
+"kRemoveAdsDescription" = "Reklamları Kaldır ve Oyunun Tadını Çıkar";
+
+"kPurchased" = "Zaten Satın Alındı";
+"kPrice" = "Fiyat";
+
+"kCantMakePayments" = "Cihazınızda satın alma devre dışı!";
+"kRestoredPurchase" = "Satın Alma Geri Yüklendi";
+"kFailPurchase" = "Satın Alma Geri Yükleme Başarısız Oldu";
+"kClose" = "Kapat";

@@ -1,0 +1,32 @@
+/* 
+  Localizable.strings
+  BlocksGame
+
+  Created by Amine Arous on 01/04/2023.
+  
+*/
+
+"menu.button.play" = "Gioca";
+"menu.button.ranking" = "Classifica";
+"menu.button.moreGames" = "Altri giochi";
+"menu.button.removeAds" = "Rimuovi ADS";
+
+"game.toast.howToPlay" = "Tocca una colonna per giocare!";
+
+"game.GameOver.title" = "Fine del gioco";
+"game.GameOver.score" = "Punteggio";
+"game.GameOver.button.menu" = "Menu";
+
+"kRestore" = "Ripristina";
+"kTermsOfUse" = "Termini di utilizzo";
+
+"kRemoveAdsTitle" = "Rimuovi gli annunci";
+"kRemoveAdsDescription" = "Rimuovi gli annunci e goditi il gioco";
+
+"kPurchased" = "Acquistato";
+"kPrice" = "Prezzo";
+
+"kCantMakePayments" = "Gli acquisti sono disabilitati sul tuo dispositivo!";
+"kRestoredPurchase" = "Acquisto ripristinato";
+"kFailPurchase" = "Ripristino dell'acquisto non riuscito";
+"kClose" = "Chiudi";

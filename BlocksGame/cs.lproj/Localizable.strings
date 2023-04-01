@@ -1,0 +1,32 @@
+/* 
+  Localizable.strings
+  BlocksGame
+
+  Created by Amine Arous on 01/04/2023.
+  
+*/
+
+"menu.button.play" = "Hrát";
+"menu.button.ranking" = "Žebříček";
+"menu.button.moreGames" = "Další hry";
+"menu.button.removeAds" = "Odstranit reklamy";
+
+"game.toast.howToPlay" = "Klepněte na sloupec pro hraní!";
+
+"game.GameOver.title" = "Konec hry";
+"game.GameOver.score" = "Skóre";
+"game.GameOver.button.menu" = "Menu";
+
+"kRestore" = "Obnovit";
+"kTermsOfUse" = "Podmínky použití";
+
+"kRemoveAdsTitle" = "Odstranit reklamy";
+"kRemoveAdsDescription" = "Odstraňte reklamy a užijte si hru";
+
+"kPurchased" = "Již zakoupeno";
+"kPrice" = "Cena";
+
+"kCantMakePayments" = "Nákupy jsou na vašem zařízení zakázány!";
+"kRestoredPurchase" = "Nákup obnoven";
+"kFailPurchase" = "Obnova nákupu selhala";
+"kClose" = "Zavřít";
