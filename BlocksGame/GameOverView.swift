@@ -19,81 +19,95 @@ struct GameOverView: View {
   @State private var stopAnimate = false
   @State private var opacity = 0.2
 
+  private let gameOverState: GameViewModel.GameOverState
   private let score: Int
+
   private let actionPlay: (() -> Void)?
   private let actionMenu: (() -> Void)?
+  @State var animateParticule: Bool = false
 
-  init(score: Int, actionPlay: (() -> Void)?, actionMenu: (() -> Void)?) {
+  init(gameOverState: GameViewModel.GameOverState, score: Int, actionPlay: (() -> Void)?, actionMenu: (() -> Void)?) {
+    self.gameOverState = gameOverState
     self.score = score
     self.actionPlay = actionPlay
     self.actionMenu = actionMenu
   }
 
   var body: some View {
-    HStack {
-      Spacer()
-      VStack {
+    ZStack {
+      HStack {
         Spacer()
-        Text("game.GameOver.title".localized())
-          .font(.custom("FarelComic", fixedSize: 35))
-          .frame(height: 100)
-          .foregroundColor(.white)
-          .shadow(color: .black, radius: 10)
-          .scaleEffect(scale)
-          .padding(20)
-
-        Text("game.GameOver.score".localized())
-          .font(.custom("FarelComic", fixedSize: 20))
-          .frame(height: 100)
-          .foregroundColor(.orange)
-          .shadow(color: .black, radius: 10)
-          .scaleEffect(scale)
-
-        Text("\(score)")
-          .font(.custom("FarelComic", fixedSize: 40))
-          .frame(height: 100)
-          .foregroundColor(.orange)
-          .shadow(color: .black, radius: 10)
-          .scaleEffect(scale)
-
-        Button {
-          actionPlay?()
-        } label: {
-          Text("menu.button.play".localized())
+        VStack {
+          Spacer()
+          Text("game.GameOver.title".localized())
+            .font(.custom("FarelComic", fixedSize: 35))
+            .frame(height: 100)
             .foregroundColor(.white)
-            .font(.custom("FarelComic", fixedSize: 45))
-            .frame(width: 250)
-            .padding(.top, 10)
-//            .background(Color(hex: "F8BBD0"))
-//            .clipShape(Capsule())
-//            .padding(.bottom, 30)
-        }
-        .scaleEffect(scaleButton)
-        .buttonStyle(NeumorphicButtonStyle())
+            .shadow(color: .black, radius: 10)
+            .scaleEffect(scale)
+            .padding(20)
 
-        Button {
-          actionMenu?()
-        } label: {
-          Text("game.GameOver.button.menu".localized())
-            .foregroundColor(.white)
-            .font(.custom("FarelComic", fixedSize: 30))
-            .frame(width: 150)
-            .padding(.top, 10)
-//            .background(Color(hex: "F8BBD0"))
-//            .clipShape(Capsule())
-           // .padding(.bottom, 30)
+          Text("game.GameOver.score".localized())
+            .font(.custom("FarelComic", fixedSize: 20))
+            .frame(height: 100)
+            .foregroundColor(.orange)
+            .shadow(color: .black, radius: 10)
+            .scaleEffect(scale)
+
+          Text("\(score)")
+            .font(.custom("FarelComic", fixedSize: 40))
+            .frame(height: 100)
+            .foregroundColor(.orange)
+            .shadow(color: .black, radius: 10)
+            .scaleEffect(scale)
+
+          Button {
+            actionPlay?()
+          } label: {
+            Text("menu.button.play".localized())
+              .foregroundColor(.white)
+              .font(.custom("FarelComic", fixedSize: 45))
+              .frame(width: 250)
+              .padding(.top, 10)
+            //            .background(Color(hex: "F8BBD0"))
+            //            .clipShape(Capsule())
+            //            .padding(.bottom, 30)
+          }
+          .scaleEffect(scaleButton)
+          .buttonStyle(NeumorphicButtonStyle())
+
+          Button {
+            actionMenu?()
+          } label: {
+            Text("game.GameOver.button.menu".localized())
+              .foregroundColor(.white)
+              .font(.custom("FarelComic", fixedSize: 30))
+              .frame(width: 150)
+              .padding(.top, 10)
+            //            .background(Color(hex: "F8BBD0"))
+            //            .clipShape(Capsule())
+            // .padding(.bottom, 30)
+          }
+          .scaleEffect(scaleButton)
+          .buttonStyle(CapsuleButtonStyle())
+          Spacer()
         }
-        .scaleEffect(scaleButton)
-        .buttonStyle(CapsuleButtonStyle())
         Spacer()
       }
-      Spacer()
+      EmitterView()
+        .opacity(animateParticule ? 1 : 0)
+        .ignoresSafeArea()
     }
     .background(content: {
       Color.black.opacity(opacity)
     })
     .edgesIgnoringSafeArea(.all)
     .onAppear {
+      if gameOverState == .win {
+        withAnimation(.spring()) {
+          animateParticule = true
+        }
+      }
       startAnimate()
     }
   }
@@ -125,10 +139,65 @@ struct GameOverView: View {
 struct GameOverView_Previews: PreviewProvider {
   static var previews: some View {
     VStack {
-      GameOverView(score: 990909, actionPlay: nil, actionMenu: nil)
-        .background {
-          Color.blue
-        }
+      GameOverView(gameOverState: .win, score: 990909, actionPlay: nil, actionMenu: nil)
+//        .background {
+//          Color.blue
+//        }
     }
+  }
+}
+
+struct EmitterView: UIViewRepresentable {
+  func makeUIView(context: Context) -> some UIView {
+    let view = UIView()
+    view.backgroundColor = .clear
+
+    let emitterLayer = CAEmitterLayer()
+    emitterLayer.emitterShape = .line
+    emitterLayer.emitterCells = createEmiterCells()
+
+    emitterLayer.emitterSize = CGSize(width: UIScreen.main.bounds.width, height: 1)
+    emitterLayer.emitterPosition = CGPoint(x: UIScreen.main.bounds.width / 2, y: 0)
+
+    view.layer.addSublayer(emitterLayer)
+
+    return view
+  }
+
+  func updateUIView(_ uiView: UIViewType, context: Context) {
+
+  }
+
+  func createEmiterCells() -> [CAEmitterCell] {
+
+    let allShapes = ["circle.fill", "seal.fill", "rhombus.fill", "triangle.fill", "hexagon.fill"]
+
+    var emiterCells: [CAEmitterCell] = []
+
+    allShapes.forEach { shape in
+      let cell = CAEmitterCell()
+
+      let image = UIImage(named: shape)?.cgImage
+      cell.contents = image
+      cell.color = getColor().cgColor
+      cell.birthRate = 4.5
+      cell.lifetimeRange = 20
+      cell.velocity = 120
+
+      cell.scale = 0.25
+      cell.emissionLongitude = .pi
+      cell.emissionRange = 0.5
+      cell.spin = 3.5
+      cell.spinRange = 1
+      emiterCells.append(cell)
+    }
+
+
+    return emiterCells
+  }
+
+  func getColor() -> UIColor {
+    let colors: [UIColor] = [.systemPink, .systemOrange, .systemRed, .systemGreen, .systemPurple]
+    return colors.randomElement() ?? .systemPink
   }
 }

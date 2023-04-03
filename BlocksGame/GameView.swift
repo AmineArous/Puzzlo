@@ -120,8 +120,8 @@ struct GameView: View {
           .position(x: viewModel.xTile, y: viewModel.yTile)
       }
 
-      if viewModel.gameState == .over {
-        GameOverView(score: viewModel.score, actionPlay: {
+      if case let .gameOver(gameOverState) = viewModel.gameState {
+        GameOverView(gameOverState: gameOverState, score: viewModel.score, actionPlay: {
           viewModel.handle(action: .startPlay)
         }, actionMenu: {
           viewModel.displayContent = .menu
@@ -188,6 +188,7 @@ struct GameView: View {
     }
     .task {
       try? await Task.sleep(nanoseconds: 0_250_000_000)
+
       withAnimation(.spring()) {
         isShowingGame = true
       }

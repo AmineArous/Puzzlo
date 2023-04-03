@@ -93,9 +93,14 @@ extension GameViewModel {
     case game
   }
 
-  enum GameState {
+  enum GameState: Equatable {
     case play
-    case over
+    case gameOver(GameOverState)
+  }
+
+  enum GameOverState: Equatable {
+    case win
+    case lose
   }
 
   enum Shape: Int, CaseIterable {
@@ -277,7 +282,7 @@ extension GameViewModel {
 
             if self.bestShapeReached == 4096 {
               self.playSound(sound: .gameOver)
-              self.gameState = .over
+              self.gameState = .gameOver(.win)
               if self.score > self.bestShapeReached {
                 self.handle(action: .reportScore)
               }
@@ -467,7 +472,7 @@ extension GameViewModel {
       if stillHaveEmptyBlock == nil {
         print("🔥 Game Over")
         self.playSound(sound: .gameOver)
-        self.gameState = .over
+        self.gameState = .gameOver(.lose)
         if score > bestScore {
           handle(action: .reportScore)
         }

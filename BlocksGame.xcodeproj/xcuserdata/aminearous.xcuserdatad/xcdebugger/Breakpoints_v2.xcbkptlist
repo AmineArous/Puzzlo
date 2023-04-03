@@ -46,8 +46,8 @@
             filePath = "BlocksGame/GameViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "198"
-            endingLineNumber = "198"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
             landmarkName = "handle(action:)"
             landmarkType = "7">
          </BreakpointContent>
