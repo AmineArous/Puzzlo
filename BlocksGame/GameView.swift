@@ -19,6 +19,14 @@ struct GameView: View {
     self.viewModel = viewModel
   }
 
+    func toto() {
+        print("🐽")
+        if 1 == 1 {
+            print("🐽🐽")
+            return
+        }
+    }
+    
   var body: some View {
     ZStack {
       VStack {
